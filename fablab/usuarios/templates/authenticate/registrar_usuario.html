@@ -1,0 +1,41 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'lib/css/mdb.dark.min.css' %}">
+<link rel="stylesheet" href="{% static 'lib/css/mdb.dark.min.css.map' %}">
+<link rel="stylesheet" href="{% static 'lib/css/mdb.dark.rtl.min.css' %}">
+<link rel="stylesheet" href="{% static 'lib/css/mdb.min.css' %}">
+<link rel="stylesheet" href="{% static 'lib/css/mdb.min.css.map' %}">
+<link rel="stylesheet" href="{% static 'lib/css/mdb.rtl.min.css' %}">
+<body style="background-color: #1d1f22;">
+  
+
+<section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+
+
+
+           
+              <h3 class="mb-5">Registrar Cuenta</h3>
+              
+              <table>
+              <form action="" method="POST">
+               {% csrf_token %}
+                
+               {{ form.as_table}}
+
+
+              </table>
+               <button class="btn btn-primary" type="submit">Registrar</button>
+               <a href="/admuser" class="btn btn-primary" style="background-color: red;"> Regresar </a>
+
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>

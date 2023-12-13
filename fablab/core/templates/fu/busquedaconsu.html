@@ -1,0 +1,61 @@
+{% extends 'home.html' %}
+
+{% block prof %}
+{% if user.is_superuser %}
+<div class="info">
+  <a href="#" style="color: blue;" class="d-block">{{user.first_name}} | ADM</a>
+</div>
+{% else %}
+<div class="info">
+  <a href="#" style="color: green;" class="d-block">{{user.first_name}} | Usuario</a>
+</div>
+
+{% endif %}
+{% endblock %}
+
+
+{% load static %}
+
+
+{% block content %}
+<div class="content-wrapper">
+        {% if buscado %}
+        <div class="colorlib-product">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 offset-sm-2 text-center colorlib-heading">
+                        <h2>Buscaste {{buscado}} </h2>
+                    </div>
+                </div>
+                <div class="card body">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                            <th>Nombre</th>
+                            <th>Clase</th>
+                            <th>Cantidad</th>
+                            <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        {% for n in consumible %}
+                        <tbody>
+                            <tr>
+                            <td>{{n.nombre}}</td>
+                            <td>{{n.clas}}</td>
+                            <td>{{n.canridad}}</td>
+                            <td>
+                            <a href="{% url 'editconsu' n.id %}" class="btn btn-primary" style="background-color: blue;">Editar</a>
+                            <a href="{% url 'borrconsu' n.id %}" class="btn btn-primary" style="background-color: red;"> Eliminar </a>
+                            </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+        {% else %}
+        <h1> No hay consumibles con ese nombre</h1>
+        {% endif %}
+
+
+
+{% endblock %}

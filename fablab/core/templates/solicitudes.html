@@ -1,0 +1,114 @@
+{% extends 'home.html' %}
+
+{% block prof %}
+{% if user.is_superuser %}
+<div class="info">
+  <a href="#" style="color: blue;" class="d-block">{{user.first_name}} | ADM</a>
+</div>
+{% else %}
+<div class="info">
+  <a href="#" style="color: green;" class="d-block">{{user.first_name}} | Usuario</a>
+</div>
+
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Solicitudes Recibidas</h1>
+          </div>
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    
+    <section class="content">
+
+        <div class="card body">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th>Nombre</th>
+                        <th>Clase</th>
+                        <th>Descripcion</th>
+                        <th>Opciones</th>
+                        </tr>
+                      </thead>
+                       {% for n in nueva %}
+                      <tbody>
+                        <tr>
+                          <td>{{n.titulo}}</td>
+                          <td>{{n.motivo}}</td>
+                          <td>{{n.descripcion}}</td>
+                          <td>
+                          <a href="{% url 'borrarso' n.id %}" class="btn btn-primary" style="background-color: red;"> Eliminar </a>
+                          </td>
+                        </tr>
+                      </tbody>
+                      {% endfor %}
+                </table>
+                
+            </div>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+                {% if nueva.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="Primera">
+                      <span aria-hidden="true">Primera</span>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ nueva.previous_page_number }}" aria-label="Anterior">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">Primera</span>
+                  </li>
+                  <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">&laquo;</span>
+                  </li>
+                {% endif %}
+            
+                {% for i in nueva.paginator.page_range %}
+                  <li class="page-item{% if nueva.number == i %} active{% endif %}">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                  </li>
+                {% endfor %}
+            
+                {% if nueva.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ nueva.next_page_number }}" aria-label="Siguiente">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ nueva.paginator.num_pages }}" aria-label="Ultima">
+                      <span aria-hidden="true">Ultima</span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">&raquo;</span>
+                  </li>
+                  <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">Ultima</span>
+                  </li>
+                {% endif %}
+              </ul>
+            </nav>
+    </section>
+  </div>
+
+
+{% endblock %}

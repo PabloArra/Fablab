@@ -1,0 +1,73 @@
+{% extends 'home.html' %}
+
+{% block prof %}
+{% if user.is_superuser %}
+<div class="info">
+  <a href="#" style="color: blue;" class="d-block">{{user.first_name}} | ADM</a>
+</div>
+{% else %}
+<div class="info">
+  <a href="#" style="color: green;" class="d-block">{{user.first_name}} | Usuario</a>
+</div>
+
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Consumibles</h1>
+          </div>
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div  class="col-sm-5 col-md-3">
+            <a href="consu" class="btn btn-primary">Crear Consumible</a>
+        </div>
+        <div class="col-sm-5 col-md-3">
+            <form class="search-wrap" method="post" action="{% url 'busquedaconsumible' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="search" class="form-control search" placeholder="Buscar" name="buscado">
+                </div>
+            </form>
+        </div>
+    </div>
+        <div class="card body">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th>Nombre</th>
+                        <th>Clase</th>
+                        <th>Cantidad</th>
+                        <th>Opciones</th>
+                        </tr>
+                      </thead>
+                       {% for i in nuevo %}
+                      <tbody>
+                        <tr>
+                          <td>{{i.nombre}}</td>
+                          <td>{{i.clas}}</td>
+                          <td>{{i.cantidad}}</td>
+                          <td>
+                          <a href="{% url 'editconsu' i.id %}"  class="btn btn-primary" style="background-color: blue;">Editar</a>
+                          <a href="{% url 'borrconsu' i.id %}" class="btn btn-primary" style="background-color: red;"> Eliminar </a>
+                        </td>
+                        </tr>
+                      </tbody>
+                      {% endfor %}
+                </table>
+            </div>
+    </section>
+  </div>
+{% endblock %}

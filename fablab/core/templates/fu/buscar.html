@@ -1,0 +1,129 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block prof %}
+{% if user.is_superuser %}
+<div class="info">
+  <a href="#" style="color: blue;" class="d-block">{{user.first_name}} | ADM</a>
+</div>
+{% else %}
+<div class="info">
+  <a href="#" style="color: green;" class="d-block">{{user.first_name}} | Usuario</a>
+</div>
+
+{% endif %}
+{% endblock %}
+
+{% block nav %}
+<div class="row">
+  <div class="col-sm-12 text-left menu-1">
+    <ul>
+      <li><a href="home">Home</a></li>
+      <li class="has-dropdown">
+      </li>
+      <li><a href="{% url 'catalogo' %}">Productos</a></li>
+      {% if request.user.is_authenticated %}
+      <li><a href="{% url 'Public' %}">Publicar</a></li>
+      <li class="nav-item" style="background-color: brown;">
+        <a href= "{% url 'logout' %}">Salir</a></li>
+      {% else %}
+      <li class="nav-item" style="background-color: brown;">
+        <a href= "{% url 'registrar_user' %}">Registrar</a></li>
+      <li class="nav-item" style="background-color: brown;">
+        <a href= "{% url 'login_user' %}">Login</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock%}
+
+
+
+
+{% block content %}
+
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" id="bootstrap-css">
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>eCommerce Product Detail</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link href="{% static 'css/rt.css' %}" rel="stylesheet">
+
+
+  </head>
+
+  <body>
+	
+	<div class="container">
+		<div class="card">
+			<div class="container-fliud">
+				<div class="wrapper row">
+					<div class="preview col-md-6">
+						
+						<div class="preview-pic tab-content">
+						  <div class="tab-pane active" id="pic-1"><img src="{{list.imgend.url}}" /></div>
+
+						</div>			
+					</div>
+					<div class="details col-md-6">
+						<h3 class="product-title">{{ list.Nombrez }}</h3>
+						<div class="rating">
+							<div class="stars">
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star checked"></span>
+								<span class="fa fa-star"></span>
+								<span class="fa fa-star"></span>
+							</div>
+							<span class="review-no">41 reviews</span>
+						</div>
+						<p class="product-description"> {{list.descrip }}</p>
+						<h4 class="price">Precio: <span>{{list.precioz }} CLP</span></h4>
+						<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+						<h5 class="sizes">sizes:
+							<span class="size" data-toggle="tooltip" title="small">s</span>
+							<span class="size" data-toggle="tooltip" title="medium">m</span>
+							<span class="size" data-toggle="tooltip" title="large">l</span>
+							<span class="size" data-toggle="tooltip" title="xtra large">xl</span>
+						</h5>
+						<div class="action">
+							<button class="add-to-cart btn btn-default" type="button">add to cart</button>
+							<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  </body>
+</html>
+
+<!-- <div class="container text-center">
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div class="card my-2" style="width: 18rem;">
+            {% if list.imgend %}
+            <img class="card-img-top" src="{{list.imgend.url}}" alt="Card image cap">
+            {% endif %}
+            <div class="card-body">
+            <h5 class="card-title">{{ list.Nombrez }}</h5>
+            <p class="card-text"> {{list.catego }}</p>
+			      <p class="card-text">$ {{list.precioz }}</p>
+            </div>
+        </div>
+     </div>   
+    </div>
+</div> -->
+
+
+
+{% endblock %}

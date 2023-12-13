@@ -1,0 +1,67 @@
+{% extends 'home.html' %}
+
+{% block prof %}
+{% if user.is_superuser %}
+<div class="info">
+  <a href="#" style="color: blue;" class="d-block">{{user.first_name}} | ADM</a>
+</div>
+{% else %}
+<div class="info">
+  <a href="#" style="color: green;" class="d-block">{{user.first_name}} | Usuario</a>
+</div>
+
+{% endif %}
+{% endblock %}
+
+
+{% load static %}
+
+
+{% block content %}
+<div class="content-wrapper">
+        {% if buscado %}
+        <div class="colorlib-product">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 offset-sm-2 text-center colorlib-heading">
+                        <h2>Buscaste {{buscado}} </h2>
+                    </div>
+                </div>
+                <div class="card body">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                            <th>Nombre</th>
+                            <th>Clase</th>
+                            <th>Descripcion</th>
+                            <th>Fecha Mantencion</th>
+                            <th>Estado</th>
+                            <th>Condicion</th>
+                            <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        {% for n in producto %}
+                        <tbody>
+                            <tr>
+                            <td>{{n.nombre}}</td>
+                            <td>{{n.clasemaq}}</td>
+                            <td>{{n.description}}</td>
+                            <td>{{n.fecham}}</td>
+                            <td>{{n.estado}}</td>
+                            <td>{{n.condicionn}}</td>
+                            <td>
+                            <a href="{% url 'edit' n.id %}" class="btn btn-primary" style="background-color: blue;">Editar</a>
+                            <a href="{% url 'borr' n.id %}" class="btn btn-primary" style="background-color: red;"> Eliminar </a>
+                            </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+        {% else %}
+        <h1> No hay maquinas con ese nombre</h1>
+        {% endif %}
+
+
+
+{% endblock %}
